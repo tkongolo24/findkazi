@@ -692,6 +692,31 @@
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
   });
+  /* Send this participant's results to the team's Google Sheet (see google-sheet/Code.gs). */
+  var SHEET_URL = (window.FINDKAZI_SHEET_URL || '').trim();
+  if (SHEET_URL && !HOSTED) {
+    var sendBtn = $('#facSend');
+    sendBtn.hidden = false;
+    sendBtn.addEventListener('click', function () {
+      var note = $('#facSent');
+      if (!fac.code.trim()) { setT(note, 'fac.sendNoCode'); note.hidden = false; $('#facCode').focus(); return; }
+      flushTime();
+      var steps = {};
+      STEPS.forEach(function (s) {
+        var m = metrics[s];
+        steps[s] = { seconds: Math.round(m.ms / 1000), help: m.help, attempts: m.attempts, errors: m.errors, completed: m.done,
+          observation: fac.obs[s] ? t('fac.obs.' + fac.obs[s], null, 'en') : '' };
+      });
+      var payload = { participant: fac.code.trim(), language: lang === 'rw' ? 'Kinyarwanda' : 'English', steps: steps, notes: fac.notes || '' };
+      sendBtn.disabled = true;
+      setT(sendBtn, 'fac.sending');
+      note.hidden = true;
+      // text/plain + no-cors: Google Apps Script accepts it without a CORS preflight; the reply can't be read.
+      fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) })
+        .then(function () { setT(note, 'fac.sent'); }, function () { setT(note, 'fac.sendFail'); })
+        .then(function () { note.hidden = false; sendBtn.disabled = false; setT(sendBtn, 'fac.send'); });
+    });
+  }
   $('#facReset').addEventListener('click', function () {
     tapConfirm(this, function () {
       store.clearAll();

@@ -538,9 +538,11 @@
           <textarea id="facNotes" rows="6"></textarea>
         </div>
         <div class="btn-row">
+          <button type="button" class="btn btn-primary" id="facSend" data-i18n="fac.send" hidden>Send to Google Sheet</button>
           <button type="button" class="btn btn-primary" id="facExport" data-i18n="fac.export">Download results</button>
           <button type="button" class="btn btn-danger" id="facReset" data-i18n="fac.reset">Reset for next participant</button>
         </div>
+        <p class="msg msg-tip" id="facSent" role="status" hidden></p>
         <p class="msg msg-tip" id="facCopied" hidden></p>
         <label class="sr-only" for="facOut" data-i18n="fac.data.title">Results</label>
         <textarea id="facOut" rows="10" readonly hidden></textarea>
@@ -553,6 +555,7 @@
     <a href="#facilitator" data-i18n="nav.fac">For facilitators</a>
   </footer>
 
+  <script src="js/config.js"></script>
   <script src="js/i18n.js"></script>
   <script src="js/app.js"></script>
 </body>
