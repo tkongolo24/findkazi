@@ -94,7 +94,7 @@
   STEPS.forEach(function (s) {
     metrics[s] = Object.assign({ ms: 0, help: 0, attempts: 0, errors: 0, done: false }, metrics[s] || {});
   });
-  function saveMetrics() { store.set('metrics', metrics); }
+  function saveMetrics() { store.set('metrics', metrics); scheduleSync(); }
 
   var currentRoute = null;
   var enterTs = Date.now();
@@ -692,28 +692,85 @@
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
   });
-  /* Send this participant's results to the team's Google Sheet (see google-sheet/Code.gs). */
+  /* ---------- results → team Google Sheet (see google-sheet/Code.gs) ----------
+   * Every device gets a random session id. Progress is sent automatically (after changes,
+   * when the page is hidden/closed, and on load), and the sheet keeps ONE row per session,
+   * updating it each time. No names, phone numbers or CV contents are sent. */
   var SHEET_URL = (window.FINDKAZI_SHEET_URL || '').trim();
-  if (SHEET_URL && !HOSTED) {
+  var SYNC_ON = !!SHEET_URL && !HOSTED;
+  var sid = store.get('sid', '');
+  if (!sid) {
+    sid = Math.random().toString(36).slice(2, 8) + Date.now().toString(36).slice(-4);
+    store.set('sid', sid);
+  }
+  function resultsPayload(source) {
+    var steps = {};
+    STEPS.forEach(function (s) {
+      var m = metrics[s];
+      steps[s] = { seconds: Math.round(m.ms / 1000), help: m.help, attempts: m.attempts, errors: m.errors, completed: m.done,
+        observation: fac.obs[s] ? t('fac.obs.' + fac.obs[s], null, 'en') : '' };
+    });
+    return {
+      session: sid,
+      source: source,
+      participant: (fac.code || '').trim() || ('Tester ' + sid.slice(0, 4).toUpperCase()),
+      language: lang === 'rw' ? 'Kinyarwanda' : 'English',
+      stepsDone: STEPS.filter(function (s) { return metrics[s].done; }).length,
+      steps: steps,
+      notes: fac.notes || ''
+    };
+  }
+  function hasProgress() {
+    return STEPS.some(function (s) { var m = metrics[s]; return m.done || m.attempts || m.help || m.ms > 15000; });
+  }
+  /* What counts as "changed" — time is rounded so we don't resend every second. */
+  function syncSignature(p) {
+    return JSON.stringify([p.participant, p.notes, STEPS.map(function (s) {
+      var m = p.steps[s]; return [Math.floor(m.seconds / 30), m.help, m.attempts, m.errors, m.completed, m.observation];
+    })]);
+  }
+  function postResults(payload, viaBeacon) {
+    var body = JSON.stringify(payload);
+    if (viaBeacon && navigator.sendBeacon) {
+      try { if (navigator.sendBeacon(SHEET_URL, new Blob([body], { type: 'text/plain;charset=utf-8' }))) return Promise.resolve(); } catch (e) {}
+    }
+    // text/plain + no-cors: Apps Script accepts it without a CORS preflight; the reply can't be read.
+    return fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', keepalive: true, headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: body });
+  }
+  var syncTimer = null;
+  function syncNow(viaBeacon) {
+    clearTimeout(syncTimer);
+    if (!SYNC_ON || !hasProgress()) return;
+    var p = resultsPayload('auto');
+    var sig = syncSignature(p);
+    if (sig === store.get('syncSig', '')) return;
+    postResults(p, viaBeacon).then(function () { store.set('syncSig', sig); }, function () {});
+  }
+  function scheduleSync() {
+    if (!SYNC_ON) return;
+    clearTimeout(syncTimer);
+    syncTimer = setTimeout(function () { syncNow(false); }, 4000);
+  }
+  if (SYNC_ON) {
+    document.addEventListener('visibilitychange', function () { if (document.hidden) { flushTime(); syncNow(true); } });
+    window.addEventListener('pagehide', function () { flushTime(); syncNow(true); });
+    setTimeout(function () { syncNow(false); }, 2500); // also catches people who tested before auto-send existed
+  }
+
+  /* Facilitator: send now, with the participant code, observations and notes. */
+  if (SYNC_ON) {
     var sendBtn = $('#facSend');
     sendBtn.hidden = false;
     sendBtn.addEventListener('click', function () {
       var note = $('#facSent');
       if (!fac.code.trim()) { setT(note, 'fac.sendNoCode'); note.hidden = false; $('#facCode').focus(); return; }
       flushTime();
-      var steps = {};
-      STEPS.forEach(function (s) {
-        var m = metrics[s];
-        steps[s] = { seconds: Math.round(m.ms / 1000), help: m.help, attempts: m.attempts, errors: m.errors, completed: m.done,
-          observation: fac.obs[s] ? t('fac.obs.' + fac.obs[s], null, 'en') : '' };
-      });
-      var payload = { participant: fac.code.trim(), language: lang === 'rw' ? 'Kinyarwanda' : 'English', steps: steps, notes: fac.notes || '' };
+      var p = resultsPayload('facilitator');
       sendBtn.disabled = true;
       setT(sendBtn, 'fac.sending');
       note.hidden = true;
-      // text/plain + no-cors: Google Apps Script accepts it without a CORS preflight; the reply can't be read.
-      fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) })
-        .then(function () { setT(note, 'fac.sent'); }, function () { setT(note, 'fac.sendFail'); })
+      postResults(p, false)
+        .then(function () { store.set('syncSig', syncSignature(p)); setT(note, 'fac.sent'); }, function () { setT(note, 'fac.sendFail'); })
         .then(function () { note.hidden = false; sendBtn.disabled = false; setT(sendBtn, 'fac.send'); });
     });
   }
