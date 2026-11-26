@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="rw">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#5b2a86">
+  <title>FindKazi</title>
+  <link rel="icon" href="logo/findkazi-icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="logo/png/findkazi-icon-180.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip" href="#main" data-i18n="a11y.skip">Skip to content</a>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#home">
+        <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#43196a"/><circle cx="48" cy="15" r="6.5" fill="#f4c430"/><path d="M18 14V50M22 34 40 22M26 32 44 50" stroke="#fff" stroke-width="8" stroke-linecap="round" fill="none"/><circle cx="40" cy="22" r="2" fill="#f4c430"/></svg>
+        <span class="brand-text"><strong class="wordmark" aria-label="findkazi">find<span>kazi</span></strong><small data-i18n="brand.tag">Learn to apply for jobs online</small></span>
+      </a>
+      <div class="lang" role="group" aria-label="Language / Ururimi">
+        <button type="button" data-lang="rw">RW</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+    </div>
+    <nav class="steps-nav" aria-label="Steps">
+      <a href="#home" data-route="home"><span data-i18n="nav.home">Home</span></a>
+      <a href="#cv" data-route="cv"><b>1</b><span data-i18n="nav.cv">CV</span></a>
+      <a href="#email" data-route="email"><b>2</b><span data-i18n="nav.email">Email</span></a>
+      <a href="#apply" data-route="apply"><b>3</b><span data-i18n="nav.apply">Apply</span></a>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+
+    <!-- ============ HOME ============ -->
+    <section class="view" id="view-home">
+      <div class="hero">
+        <div class="hero-text">
+          <p class="kicker" data-i18n="home.kicker">Practice session</p>
+          <h1 data-i18n="home.title">Your first job starts with a strong application</h1>
+          <p class="lead" data-i18n="home.lead"></p>
+          <a class="btn btn-primary btn-lg" id="homeCta" href="#cv" data-i18n="home.start">Start step 1</a>
+        </div>
+        <svg class="hero-art" viewBox="0 0 320 180" aria-hidden="true">
+          <circle cx="238" cy="58" r="28" fill="#f4c430"/>
+          <path d="M0 130 C50 80 90 82 140 118 C180 88 220 84 320 126 L320 180 L0 180 Z" fill="#b99bd6"/>
+          <path d="M0 152 C60 116 120 118 170 146 C220 122 270 122 320 146 L320 180 L0 180 Z" fill="#5b2a86"/>
+          <rect x="118" y="96" width="62" height="78" rx="9" fill="#fff" stroke="#15231b" stroke-width="3"/>
+          <rect x="128" y="108" width="42" height="6" rx="3" fill="#1a8fc9"/>
+          <rect x="128" y="122" width="34" height="4" rx="2" fill="#c9c3b5"/>
+          <rect x="128" y="132" width="40" height="4" rx="2" fill="#c9c3b5"/>
+          <rect x="128" y="142" width="28" height="4" rx="2" fill="#c9c3b5"/>
+          <circle cx="149" cy="162" r="5" fill="#5b2a86"/>
+        </svg>
+      </div>
+
+      <div class="banner banner-ok" id="allDone" hidden>
+        <strong data-i18n="home.allDone">You finished all 3 steps!</strong>
+        <span data-i18n="home.allDoneText"></span>
+      </div>
+
+      <ol class="step-cards">
+        <li><a class="step-card" href="#cv">
+          <span class="num">1</span>
+          <span class="step-body"><strong data-i18n="step1.title">Make your CV</strong><span data-i18n="step1.desc"></span></span>
+          <span class="pill" id="status-cv"></span>
+        </a></li>
+        <li><a class="step-card" href="#email">
+          <span class="num">2</span>
+          <span class="step-body"><strong data-i18n="step2.title">Write a professional email</strong><span data-i18n="step2.desc"></span></span>
+          <span class="pill" id="status-email"></span>
+        </a></li>
+        <li><a class="step-card" href="#apply">
+          <span class="num">3</span>
+          <span class="step-body"><strong data-i18n="step3.title">Apply online</strong><span data-i18n="step3.desc"></span></span>
+          <span class="pill" id="status-apply"></span>
+        </a></li>
+      </ol>
+
+      <div class="card">
+        <h2 data-i18n="home.need.title">Before you start</h2>
+        <ul class="ticks">
+          <li data-i18n="home.need.1"></li>
+          <li data-i18n="home.need.2"></li>
+          <li data-i18n="home.need.3"></li>
+          <li data-i18n="home.need.4"></li>
+        </ul>
+      </div>
+      <p class="privacy" data-i18n="home.private"></p>
+    </section>
+
+    <!-- ============ STEP 1: CV ============ -->
+    <section class="view" id="view-cv" hidden>
+      <header class="view-head">
+        <p class="kicker" data-i18n="cv.kicker">Step 1 of 3</p>
+        <h1 data-i18n="cv.title">Make your CV</h1>
+        <p class="lead" data-i18n="cv.lead"></p>
+      </header>
+
+      <details class="card learn" open>
+        <summary data-i18n="cv.tips.title">5 rules for a good CV</summary>
+        <ol class="rules">
+          <li data-i18n="cv.tip1"></li>
+          <li data-i18n="cv.tip2"></li>
+          <li data-i18n="cv.tip3"></li>
+          <li data-i18n="cv.tip4"></li>
+          <li data-i18n="cv.tip5"></li>
+        </ol>
+      </details>
+
+      <div class="builder">
+        <form class="builder-form" id="cvForm" autocomplete="off" novalidate>
+          <fieldset class="card">
+            <legend data-i18n="cv.sec.personal">About you</legend>
+            <div class="field">
+              <div class="label-row" data-help="f.fullName.help"><label for="cv-fullName" data-i18n="f.fullName">Full name</label></div>
+              <input id="cv-fullName" name="fullName" type="text" autocomplete="name" data-i18n-ph="ph.fullName">
+            </div>
+            <div class="field">
+              <div class="label-row" data-help="f.phone.help"><label for="cv-phone" data-i18n="f.phone">Phone number</label></div>
+              <input id="cv-phone" name="phone" type="tel" inputmode="tel" placeholder="078 123 4567">
+            </div>
+            <div class="field">
+              <div class="label-row" data-help="f.email.help"><label for="cv-email" data-i18n="f.email">Email address</label></div>
+              <input id="cv-email" name="email" type="email" inputmode="email" placeholder="jean.uwase@gmail.com">
+            </div>
+            <div class="field">
+              <div class="label-row"><label for="cv-district" data-i18n="f.district">District where you live</label></div>
+              <select id="cv-district" name="district" class="district-select"></select>
+            </div>
+          </fieldset>
+
+          <fieldset class="card">
+            <legend data-i18n="cv.sec.profile">About me</legend>
+            <div class="field">
+              <div class="label-row" data-help="f.profile.help"><label for="cv-profile" data-i18n="f.profile">About me (2–3 sentences)</label></div>
+              <textarea id="cv-profile" name="profile" rows="4"></textarea>
+              <button type="button" class="btn btn-ghost btn-sm" id="profileExample" data-i18n="f.profile.example">Use an example</button>
+            </div>
+          </fieldset>
+
+          <fieldset class="card">
+            <legend data-i18n="cv.sec.edu">School</legend>
+            <div class="field">
+              <div class="label-row"><label for="cv-school" data-i18n="f.school">School name</label></div>
+              <input id="cv-school" name="school" type="text" data-i18n-ph="ph.school">
+            </div>
+            <div class="field">
+              <div class="label-row" data-help="f.combination.help"><label for="cv-combination" data-i18n="f.combination">Combination or trade</label></div>
+              <input id="cv-combination" name="combination" type="text">
+            </div>
+            <div class="row-2">
+              <div class="field">
+                <div class="label-row"><label for="cv-level" data-i18n="f.level">Certificate</label></div>
+                <select id="cv-level" name="level" class="level-select"></select>
+              </div>
+              <div class="field">
+                <div class="label-row"><label for="cv-year" data-i18n="f.year">Year you finished</label></div>
+                <input id="cv-year" name="year" type="text" inputmode="numeric" maxlength="4" placeholder="2025">
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="card">
+            <legend data-i18n="cv.sec.skills">Skills</legend>
+            <p class="hint-static" data-i18n="skills.help">Tap all that are true for you.</p>
+            <div class="chips" id="skillChips"></div>
+            <div class="field">
+              <div class="label-row"><label for="cv-otherSkill" data-i18n="f.otherSkill">Another skill</label></div>
+              <input id="cv-otherSkill" name="otherSkill" type="text">
+            </div>
+          </fieldset>
+
+          <fieldset class="card">
+            <legend data-i18n="cv.sec.exp">Experience (optional)</legend>
+            <p class="hint-static" data-i18n="exp.help"></p>
+            <div class="field">
+              <div class="label-row"><label for="cv-expRole" data-i18n="f.expRole">What you did</label></div>
+              <input id="cv-expRole" name="expRole" type="text" data-i18n-ph="ph.expRole">
+            </div>
+            <div class="row-2">
+              <div class="field">
+                <div class="label-row"><label for="cv-expPlace" data-i18n="f.expPlace">Where</label></div>
+                <input id="cv-expPlace" name="expPlace" type="text">
+              </div>
+              <div class="field">
+                <div class="label-row"><label for="cv-expWhen" data-i18n="f.expWhen">When</label></div>
+                <input id="cv-expWhen" name="expWhen" type="text" placeholder="2024 – 2025">
+              </div>
+            </div>
+            <div class="field">
+              <div class="label-row"><label for="cv-expDesc" data-i18n="f.expDesc">One sentence about it</label></div>
+              <textarea id="cv-expDesc" name="expDesc" rows="2"></textarea>
+            </div>
+          </fieldset>
+
+          <fieldset class="card">
+            <legend data-i18n="cv.sec.lang">Languages</legend>
+            <div class="chips" id="langChips"></div>
+          </fieldset>
+
+          <fieldset class="card">
+            <legend data-i18n="cv.sec.ref">Reference</legend>
+            <p class="hint-static" data-i18n="ref.help"></p>
+            <div class="field">
+              <div class="label-row"><label for="cv-refName" data-i18n="f.refName">Name and role</label></div>
+              <input id="cv-refName" name="refName" type="text" data-i18n-ph="ph.refName">
+            </div>
+            <div class="field">
+              <div class="label-row"><label for="cv-refPhone" data-i18n="f.refPhone">Their phone</label></div>
+              <input id="cv-refPhone" name="refPhone" type="tel" inputmode="tel" placeholder="078 000 0000">
+            </div>
+          </fieldset>
+        </form>
+
+        <aside class="preview" id="cvPreviewWrap" aria-labelledby="cvPreviewTitle">
+          <div class="preview-bar">
+            <h2 id="cvPreviewTitle" data-i18n="cv.preview">Your CV</h2>
+            <span class="saved" id="cvSaved" data-i18n="cv.saved">Saved on this device</span>
+          </div>
+          <div class="field inline">
+            <label for="cvOutLang" data-i18n="cv.cvLang">CV language</label>
+            <select id="cvOutLang">
+              <option value="en">English</option>
+              <option value="rw">Ikinyarwanda</option>
+            </select>
+          </div>
+          <div class="paper" id="cvPaper"></div>
+          <div class="btn-row">
+            <button type="button" class="btn" id="cvPrint" data-i18n="cv.print">Print or save as PDF</button>
+            <button type="button" class="btn" id="cvDownload" data-i18n="cv.download">Download</button>
+          </div>
+          <p class="msg msg-warn" id="cvMissing" hidden data-i18n="cv.missing"></p>
+          <button type="button" class="btn btn-primary btn-block" id="cvDone" data-i18n="cv.done">My CV is ready → Step 2</button>
+          <button type="button" class="btn btn-ghost btn-sm" id="cvClear" data-i18n="cv.clear">Start again</button>
+        </aside>
+      </div>
+      <a class="jump-preview" href="#cvPreviewWrap" id="jumpPreview" data-i18n="cv.seeMine">See my CV ↓</a>
+    </section>
+
+    <!-- ============ STEP 2: EMAIL ============ -->
+    <section class="view" id="view-email" hidden>
+      <header class="view-head">
+        <p class="kicker" data-i18n="em.kicker">Step 2 of 3</p>
+        <h1 data-i18n="em.title">Write a professional email</h1>
+        <p class="lead" data-i18n="em.lead"></p>
+      </header>
+
+      <details class="card learn" open>
+        <summary data-i18n="em.parts.title">The 6 parts of a good email</summary>
+        <ol class="rules parts">
+          <li data-i18n-html="em.part1"></li>
+          <li data-i18n-html="em.part2"></li>
+          <li data-i18n-html="em.part3"></li>
+          <li data-i18n-html="em.part4"></li>
+          <li data-i18n-html="em.part5"></li>
+          <li data-i18n-html="em.part6"></li>
+        </ol>
+      </details>
+
+      <details class="card learn">
+        <summary data-i18n="em.addr.title">Choose a good email address</summary>
+        <div class="compare">
+          <div class="bad"><span class="tag" data-i18n="em.addr.bad">Not professional</span><code>sweetboy2000@gmail.com</code><code>queen_baby@yahoo.com</code></div>
+          <div class="good"><span class="tag" data-i18n="em.addr.good">Professional</span><code>jean.uwase@gmail.com</code><code>uwase.jean25@gmail.com</code></div>
+        </div>
+        <p data-i18n="em.addr.note"></p>
+      </details>
+
+      <div class="task">
+        <h2 data-i18n="em.task.title">Your task</h2>
+        <p data-i18n="em.task.text"></p>
+        <p class="task-address"><code>jobs@hingamarket.example</code></p>
+      </div>
+
+      <form class="mail card" id="mailForm" autocomplete="off" novalidate>
+        <div class="mail-row"><label for="em-from" data-i18n="em.from">From</label><input id="em-from" type="email" inputmode="email"></div>
+        <div class="mail-row"><label for="em-to" data-i18n="em.to">To</label><input id="em-to" type="email" inputmode="email"></div>
+        <div class="mail-row"><label for="em-subject" data-i18n="em.subject">Subject</label><input id="em-subject" type="text"></div>
+        <label class="sr-only" for="em-body" data-i18n="em.message">Message</label>
+        <textarea id="em-body" rows="11" data-i18n-ph="em.bodyPh"></textarea>
+        <div class="mail-foot">
+          <label class="attach">
+            <input type="checkbox" id="em-attach">
+            <span class="attach-off">📎 <span data-i18n="em.attach">Attach my CV</span></span>
+            <span class="attach-on">📎 <span id="attachName">CV.pdf</span> ✓</span>
+          </label>
+        </div>
+      </form>
+
+      <div class="btn-row">
+        <button type="button" class="btn btn-primary" id="emCheck" data-i18n="em.check">Check my email</button>
+        <button type="button" class="btn" id="emExampleBtn" aria-expanded="false" data-i18n="em.example">See an example</button>
+      </div>
+
+      <div class="card example" id="emExample" hidden>
+        <p class="ex-meta"><span data-i18n="em.to">To</span>: jobs@hingamarket.example</p>
+        <p class="ex-meta"><span data-i18n="em.subject">Subject</span>: <span data-i18n="em.ex.subject"></span></p>
+        <pre class="ex-body" data-i18n="em.ex.body"></pre>
+        <p class="ex-meta">📎 CV_Jean_Uwase.pdf</p>
+      </div>
+
+      <div class="card feedback" id="emFeedback" hidden aria-live="polite">
+        <div class="score"><strong id="emScore"></strong><div class="bar"><span id="emBar"></span></div></div>
+        <ul class="checks" id="emChecks"></ul>
+        <button type="button" class="btn btn-primary btn-block" id="emSend" data-i18n="em.send">Send (practice)</button>
+        <p class="msg msg-warn" id="emSendBlocked" hidden data-i18n="em.blocked"></p>
+      </div>
+
+      <div class="card success" id="emSent" hidden>
+        <p class="big-tick" aria-hidden="true">✓</p>
+        <h2 data-i18n="em.sent">Practice email sent!</h2>
+        <p data-i18n="em.sentText"></p>
+        <a class="btn btn-primary" href="#apply" data-i18n="em.next">Go to step 3 →</a>
+      </div>
+    </section>
+
+    <!-- ============ STEP 3: APPLY ============ -->
+    <section class="view" id="view-apply" hidden>
+      <header class="view-head">
+        <p class="kicker" data-i18n="ap.kicker">Step 3 of 3</p>
+        <h1 data-i18n="ap.title">Apply for a job online</h1>
+        <p class="lead" data-i18n="ap.lead"></p>
+      </header>
+
+      <article class="ad card">
+        <p class="ad-badge" data-i18n="ad.badge">Job advert (practice)</p>
+        <div class="ad-head">
+          <div class="ad-logo" aria-hidden="true">HM</div>
+          <div>
+            <p class="ad-company">Hinga Market Ltd</p>
+            <h2 class="ad-role" data-i18n="ad.role">Customer Service Assistant</h2>
+          </div>
+        </div>
+        <ul class="ad-meta">
+          <li>📍 Musanze</li>
+          <li>🕘 <span data-i18n="ad.type">Full-time</span></li>
+          <li>💰 <span data-i18n="ad.salary">RWF 120,000 / month</span></li>
+          <li class="deadline">⏰ <span data-i18n="ad.deadline">Apply before 15 December 2026</span></li>
+        </ul>
+        <p data-i18n="ad.about"></p>
+        <h3 data-i18n="ad.duties">What you will do</h3>
+        <ul class="ticks">
+          <li data-i18n="ad.d1"></li><li data-i18n="ad.d2"></li><li data-i18n="ad.d3"></li><li data-i18n="ad.d4"></li>
+        </ul>
+        <h3 data-i18n="ad.req">What we need</h3>
+        <ul class="ticks">
+          <li data-i18n="ad.r1"></li><li data-i18n="ad.r2"></li><li data-i18n="ad.r3"></li><li data-i18n="ad.r4"></li>
+        </ul>
+        <h3 data-i18n="ad.how">How to apply</h3>
+        <p data-i18n-html="ad.howText"></p>
+        <p class="ad-fake" data-i18n="ad.fictional"></p>
+      </article>
+      <p class="msg msg-tip" data-i18n="ad.tip"></p>
+
+      <form class="card appform" id="apForm" autocomplete="off" novalidate>
+        <h2 data-i18n="form.title">Application form</h2>
+        <p class="hint-static" data-i18n="form.required"></p>
+        <div class="msg msg-err" id="apSummary" hidden role="alert" tabindex="-1"></div>
+
+        <h3 class="form-sec" data-i18n="form.s1">1. Personal details</h3>
+        <div class="row-2">
+          <div class="field" data-field="firstName">
+            <div class="label-row"><label for="ap-firstName" data-i18n="ap.firstName">First name *</label></div>
+            <input id="ap-firstName" type="text">
+            <p class="err"></p>
+          </div>
+          <div class="field" data-field="lastName">
+            <div class="label-row"><label for="ap-lastName" data-i18n="ap.lastName">Family name *</label></div>
+            <input id="ap-lastName" type="text">
+            <p class="err"></p>
+          </div>
+        </div>
+        <div class="field" data-field="dob">
+          <div class="label-row" data-help="ap.dob.help"><label for="ap-dob" data-i18n="ap.dob">Date of birth *</label></div>
+          <input id="ap-dob" type="date">
+          <p class="err"></p>
+        </div>
+        <div class="row-2">
+          <div class="field" data-field="phone">
+            <div class="label-row" data-help="f.phone.help"><label for="ap-phone" data-i18n="ap.phone">Phone number *</label></div>
+            <input id="ap-phone" type="tel" inputmode="tel" placeholder="078 123 4567">
+            <p class="err"></p>
+          </div>
+          <div class="field" data-field="email">
+            <div class="label-row"><label for="ap-email" data-i18n="ap.email">Email (if you have one)</label></div>
+            <input id="ap-email" type="email" inputmode="email">
+            <p class="err"></p>
+          </div>
+        </div>
+        <div class="field" data-field="district">
+          <div class="label-row"><label for="ap-district" data-i18n="ap.district">District *</label></div>
+          <select id="ap-district" class="district-select"></select>
+          <p class="err"></p>
+        </div>
+
+        <h3 class="form-sec" data-i18n="form.s2">2. The job</h3>
+        <fieldset class="field" data-field="position">
+          <legend data-help="ap.position.help"><span data-i18n="ap.position">Which job are you applying for? *</span></legend>
+          <label class="opt"><input type="radio" name="position" value="manager"> <span data-i18n="pos.manager"></span></label>
+          <label class="opt"><input type="radio" name="position" value="customer"> <span data-i18n="pos.customer"></span></label>
+          <label class="opt"><input type="radio" name="position" value="driver"> <span data-i18n="pos.driver"></span></label>
+          <p class="err"></p>
+        </fieldset>
+        <fieldset class="field" data-field="heard">
+          <legend><span data-i18n="ap.heard">Where did you see this job? *</span></legend>
+          <label class="opt"><input type="radio" name="heard" value="online"> <span data-i18n="heard.online"></span></label>
+          <label class="opt"><input type="radio" name="heard" value="radio"> <span data-i18n="heard.radio"></span></label>
+          <label class="opt"><input type="radio" name="heard" value="friend"> <span data-i18n="heard.friend"></span></label>
+          <label class="opt"><input type="radio" name="heard" value="board"> <span data-i18n="heard.board"></span></label>
+          <p class="err"></p>
+        </fieldset>
+
+        <h3 class="form-sec" data-i18n="form.s3">3. Education</h3>
+        <div class="row-2">
+          <div class="field" data-field="level">
+            <div class="label-row"><label for="ap-level" data-i18n="ap.level">Highest certificate *</label></div>
+            <select id="ap-level" class="level-select"></select>
+            <p class="err"></p>
+          </div>
+          <div class="field" data-field="year">
+            <div class="label-row"><label for="ap-year" data-i18n="ap.year">Year finished *</label></div>
+            <input id="ap-year" type="text" inputmode="numeric" maxlength="4" placeholder="2025">
+            <p class="err"></p>
+          </div>
+        </div>
+
+        <h3 class="form-sec" data-i18n="form.s4">4. Your CV</h3>
+        <fieldset class="field" data-field="cv">
+          <legend data-help="ap.cv.help"><span data-i18n="ap.cv">Attach your CV *</span></legend>
+          <label class="opt"><input type="radio" name="cvsource" value="made"> <span data-i18n="ap.cvMade"></span></label>
+          <label class="opt"><input type="radio" name="cvsource" value="upload"> <span data-i18n="ap.cvUpload"></span></label>
+          <input id="ap-file" type="file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" hidden>
+          <p class="err"></p>
+        </fieldset>
+
+        <h3 class="form-sec" data-i18n="form.s5">5. A few questions</h3>
+        <div class="field" data-field="motivation">
+          <div class="label-row" data-help="ap.motivation.help"><label for="ap-motivation" data-i18n="ap.motivation">Why do you want this job? *</label></div>
+          <textarea id="ap-motivation" rows="4"></textarea>
+          <p class="err"></p>
+        </div>
+        <fieldset class="field" data-field="start">
+          <legend><span data-i18n="ap.start">When can you start? *</span></legend>
+          <label class="opt"><input type="radio" name="start" value="now"> <span data-i18n="start.now"></span></label>
+          <label class="opt"><input type="radio" name="start" value="2w"> <span data-i18n="start.2w"></span></label>
+          <label class="opt"><input type="radio" name="start" value="1m"> <span data-i18n="start.1m"></span></label>
+          <p class="err"></p>
+        </fieldset>
+        <fieldset class="field" data-field="langs">
+          <legend><span data-i18n="ap.langs">Languages you speak *</span></legend>
+          <label class="opt"><input type="checkbox" name="aplang" value="rw"> <span data-i18n="lang.rw"></span></label>
+          <label class="opt"><input type="checkbox" name="aplang" value="en"> <span data-i18n="lang.en"></span></label>
+          <label class="opt"><input type="checkbox" name="aplang" value="fr"> <span data-i18n="lang.fr"></span></label>
+          <label class="opt"><input type="checkbox" name="aplang" value="sw"> <span data-i18n="lang.sw"></span></label>
+          <p class="err"></p>
+        </fieldset>
+
+        <h3 class="form-sec" data-i18n="form.s6">6. Confirm</h3>
+        <div class="field" data-field="declare">
+          <label class="opt opt-box"><input type="checkbox" id="ap-declare"> <span data-i18n="ap.declare"></span></label>
+          <p class="err"></p>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-lg" data-i18n="ap.submit">Submit application</button>
+      </form>
+
+      <div class="card success" id="apDone" hidden tabindex="-1">
+        <p class="big-tick" aria-hidden="true">✓</p>
+        <h2 data-i18n="ok.title">Application sent!</h2>
+        <p data-i18n="ok.text"></p>
+        <div class="refbox">
+          <span data-i18n="ok.ref">Reference number</span>
+          <strong id="apRef"></strong>
+          <small data-i18n="ok.refNote"></small>
+        </div>
+        <h3 data-i18n="ok.next">In real life, what happens next?</h3>
+        <ul class="ticks">
+          <li data-i18n="ok.n1"></li><li data-i18n="ok.n2"></li><li data-i18n="ok.n3"></li><li data-i18n="ok.n4"></li>
+        </ul>
+        <a class="btn btn-primary" href="#home" data-i18n="ok.home">Back to home</a>
+      </div>
+    </section>
+
+    <!-- ============ FACILITATOR ============ -->
+    <section class="view" id="view-facilitator" hidden>
+      <header class="view-head">
+        <p class="kicker" data-i18n="fac.kicker">For the team</p>
+        <h1 data-i18n="fac.title">Facilitator guide</h1>
+        <p class="lead" data-i18n="fac.lead"></p>
+      </header>
+
+      <div class="card assume">
+        <h2 data-i18n="fac.assume.title">Assumption we are testing</h2>
+        <p data-i18n="fac.assume"></p>
+        <p><strong data-i18n="fac.task.label">User task:</strong> <span data-i18n="fac.task"></span></p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h2 data-i18n="fac.plan.title">Session plan</h2>
+          <ol class="rules">
+            <li data-i18n="fac.p1"></li><li data-i18n="fac.p2"></li><li data-i18n="fac.p3"></li><li data-i18n="fac.p4"></li><li data-i18n="fac.p5"></li>
+          </ol>
+        </div>
+        <div class="card">
+          <h2 data-i18n="fac.rules.title">While you observe</h2>
+          <ul class="ticks">
+            <li data-i18n="fac.r1"></li><li data-i18n="fac.r2"></li><li data-i18n="fac.r3"></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 data-i18n="fac.data.title">What this device recorded</h2>
+        <div class="field inline">
+          <label for="facCode" data-i18n="fac.participant">Participant code</label>
+          <input id="facCode" type="text" placeholder="P1" maxlength="12">
+        </div>
+        <div class="table-wrap">
+          <table class="stats">
+            <thead><tr><th></th><th data-i18n="nav.cv">CV</th><th data-i18n="nav.email">Email</th><th data-i18n="nav.apply">Apply</th></tr></thead>
+            <tbody id="facStats"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 data-i18n="fac.obs.title">Your observation</h2>
+        <div id="facObs"></div>
+        <h3 data-i18n="fac.q.title">Questions to ask after</h3>
+        <ol class="rules">
+          <li data-i18n="fac.q1"></li><li data-i18n="fac.q2"></li><li data-i18n="fac.q3"></li><li data-i18n="fac.q4"></li>
+        </ol>
+        <div class="field">
+          <div class="label-row"><label for="facNotes" data-i18n="fac.notes">Notes</label></div>
+          <textarea id="facNotes" rows="6"></textarea>
+        </div>
+        <div class="btn-row">
+          <button type="button" class="btn btn-primary" id="facExport" data-i18n="fac.export">Download results</button>
+          <button type="button" class="btn btn-danger" id="facReset" data-i18n="fac.reset">Reset for next participant</button>
+        </div>
+        <p class="msg msg-tip" id="facCopied" hidden></p>
+        <label class="sr-only" for="facOut" data-i18n="fac.data.title">Results</label>
+        <textarea id="facOut" rows="10" readonly hidden></textarea>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p data-i18n="foot.text"></p>
+    <a href="#facilitator" data-i18n="nav.fac">For facilitators</a>
+  </footer>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
